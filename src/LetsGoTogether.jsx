@@ -1,8 +1,26 @@
-import { useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
 
-const FORMSUBMIT_ACTION = "https://formsubmit.co/administrator@gygdigitalmarketing.com"
+const FORMSUBMIT_AJAX = "https://formsubmit.co/ajax/administrator@gygdigitalmarketing.com"
+/** WhatsApp +57 311 6405107 (solo dígitos, sin +) */
+const WHATSAPP_PHONE = "573116405107"
+
+function buildWhatsAppMessage(fd) {
+  const name = String(fd.get("name") ?? "").trim()
+  const email = String(fd.get("email") ?? "").trim()
+  const phone = String(fd.get("phone") ?? "").trim()
+  const message = String(fd.get("message") ?? "").trim()
+  const lines = [
+    "*G&G — Let's go together*",
+    "",
+    `*Nombre:* ${name}`,
+    `*Email:* ${email}`,
+  ]
+  if (phone) lines.push(`*Teléfono:* ${phone}`)
+  lines.push("", "*Mensaje:*", message)
+  return lines.join("\n")
+}
 
 export default function LetsGoTogether() {
   const homeUrl = useMemo(() => {
@@ -16,6 +34,28 @@ export default function LetsGoTogether() {
     if (typeof window === "undefined") return ""
     return window.location.href.split("#")[0]
   }, [])
+
+  const handleSubmit = useCallback((e) => {
+    const form = e.currentTarget
+    e.preventDefault()
+    if (!form.reportValidity()) return
+
+    const fd = new FormData(form)
+    const text = buildWhatsAppMessage(fd)
+    const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`
+    window.open(waUrl, "_blank", "noopener,noreferrer")
+
+    const params = new URLSearchParams()
+    for (const [key, value] of fd.entries()) {
+      if (typeof value === "string") params.append(key, value)
+    }
+
+    void fetch(FORMSUBMIT_AJAX, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded", Accept: "application/json" },
+      body: params.toString(),
+    }).catch(() => {})
+  }, [formPageUrl])
 
   useEffect(() => {
     const prevTitle = document.title
@@ -61,7 +101,8 @@ export default function LetsGoTogether() {
             Your competition focuses on the present. We design the future.
           </h1>
           <p className="mt-4 text-sm text-slate-400">
-            Tell us how we can help. This form sends your message directly to our team.
+            Tell us how we can help. When you send, we open WhatsApp with your details so you can finish
+            the message there, and we also email our team.
           </p>
         </motion.div>
 
@@ -71,7 +112,7 @@ export default function LetsGoTogether() {
           transition={{ duration: 0.5, delay: 0.12, ease: "easeOut" }}
           className="section-shell gradient-border mt-10 rounded-2xl p-6 sm:p-8"
         >
-          <form action={FORMSUBMIT_ACTION} method="POST" className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <input type="hidden" name="_subject" value="G&G — Let's go together (strategy page)" />
             <input type="hidden" name="_next" value={homeUrl} />
             <input type="hidden" name="_template" value="table" />
@@ -143,9 +184,10 @@ export default function LetsGoTogether() {
             </button>
 
             <p className="text-center text-[11px] leading-relaxed text-slate-500">
-              Delivered to{" "}
-              <span className="text-slate-400">administrator@gygdigitalmarketing.com</span>. The first time
-              you use FormSubmit, check that inbox to activate delivery if prompted.
+              WhatsApp{" "}
+              <span className="text-slate-400">+57 311 6405107</span> opens with your text; a copy also goes
+              to <span className="text-slate-400">administrator@gygdigitalmarketing.com</span> (activate
+              FormSubmit in that inbox if it is the first time).
             </p>
           </form>
         </motion.div>
