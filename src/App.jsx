@@ -62,7 +62,7 @@ function AppShell() {
   const { lang } = useLang()
 
   return (
-    <main className="relative overflow-x-hidden px-6 pb-24 text-slate-100 lg:px-10">
+    <main className="relative overflow-x-hidden px-4 pb-[max(6rem,env(safe-area-inset-bottom,0px))] pt-[max(0px,env(safe-area-inset-top,0px))] text-slate-100 sm:px-6 lg:px-10">
       <AmbientBackground reducedMotion={reducedMotion} />
       <IntroOverlay />
       <div className="mx-auto w-full max-w-6xl">
@@ -144,23 +144,57 @@ function LogoMark({ className = "h-11 w-11" }) {
   )
 }
 
+function getIntroFlyTarget() {
+  if (typeof window === "undefined") {
+    return { x: -300, y: -250, scale: 0.44, logoClass: "h-24 w-24" }
+  }
+  const w = window.innerWidth
+  const h = window.innerHeight
+  if (w < 400) {
+    return {
+      x: -Math.min(140, w * 0.32),
+      y: -Math.min(120, h * 0.22),
+      scale: 0.36,
+      logoClass: "h-20 w-20",
+    }
+  }
+  if (w < 640) {
+    return {
+      x: -Math.min(200, w * 0.38),
+      y: -Math.min(170, h * 0.26),
+      scale: 0.4,
+      logoClass: "h-[5.5rem] w-[5.5rem]",
+    }
+  }
+  if (w < 900) {
+    return { x: -240, y: -210, scale: 0.42, logoClass: "h-24 w-24" }
+  }
+  return { x: -320, y: -270, scale: 0.45, logoClass: "h-24 w-24" }
+}
+
 function IntroOverlay() {
+  const fly = useMemo(() => getIntroFlyTarget(), [])
+
   return (
     <motion.div
       className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-[#05070f]"
+      style={{
+        paddingLeft: "env(safe-area-inset-left, 0px)",
+        paddingRight: "env(safe-area-inset-right, 0px)",
+      }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: 2.2, duration: 0.7, ease: "easeOut" }}
     >
       <div className="relative">
         <motion.div
-          className="absolute -inset-20 rounded-full bg-fuchsia-500/25 blur-3xl"
+          className="absolute -inset-20 rounded-full bg-fuchsia-500/25 blur-3xl max-[380px]:-inset-12"
           initial={{ opacity: 0.2, scale: 0.85 }}
           animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.88, 1.16, 1] }}
           transition={{ duration: 2.3, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute -inset-24 rounded-full bg-cyan-400/18 blur-3xl"
+          className="absolute -inset-24 rounded-full bg-cyan-400/18 blur-3xl max-[380px]:-inset-14"
           initial={{ opacity: 0.2, scale: 0.9 }}
           animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.9, 1.2, 1.02] }}
           transition={{ duration: 2.4, ease: "easeInOut" }}
@@ -173,10 +207,10 @@ function IntroOverlay() {
         >
           <motion.div
             initial={{ x: 0, y: 0 }}
-            animate={{ x: -320, y: -270, scale: 0.45 }}
+            animate={{ x: fly.x, y: fly.y, scale: fly.scale }}
             transition={{ delay: 1.65, duration: 0.8, ease: "easeInOut" }}
           >
-            <LogoMark className="h-24 w-24" />
+            <LogoMark className={fly.logoClass} />
           </motion.div>
         </motion.div>
       </div>
@@ -191,7 +225,7 @@ function Navbar() {
       initial={{ opacity: 0, y: -14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.35, duration: 0.7 }}
-      className="sticky top-4 z-40 mt-4"
+      className="sticky z-40 mt-4 top-[max(1rem,env(safe-area-inset-top,0px))]"
     >
       <nav className="section-shell gradient-border flex flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3 sm:px-5">
         <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -241,7 +275,7 @@ function Hero({ reducedMotion }) {
       transition={{ delay: 2.55, duration: 0.8 }}
       className="pt-18"
     >
-      <div className="section-shell gradient-border relative overflow-hidden rounded-3xl px-6 py-14 text-left md:px-12">
+      <div className="section-shell gradient-border relative overflow-hidden rounded-3xl px-4 py-10 text-left sm:px-6 sm:py-12 md:px-12 md:py-14">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_35%,rgba(95,235,255,0.2),transparent_40%),radial-gradient(circle_at_85%_40%,rgba(219,76,255,0.18),transparent_44%)]" />
         <div className="section-divider absolute inset-x-0 top-0 h-px" />
         <div className="relative grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
@@ -249,10 +283,12 @@ function Hero({ reducedMotion }) {
             <span className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-400/10 px-4 py-1 text-xs font-semibold tracking-[0.16em] text-fuchsia-100">
               {copy.heroBadge}
             </span>
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+            <h1 className="mt-6 max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
               {copy.heroTitle}
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-300">{copy.heroSub}</p>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              {copy.heroSub}
+            </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <a href="#contact" className="premium-button">
                 <span>{copy.heroCta1}</span>
@@ -351,7 +387,7 @@ function Services() {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <h2 className="text-3xl font-semibold">{copy.servicesTitle}</h2>
+      <h2 className="text-2xl font-semibold sm:text-3xl">{copy.servicesTitle}</h2>
       <motion.div
         variants={fadeStagger}
         initial="hidden"
@@ -506,11 +542,11 @@ function ShowcaseVitrine({ reducedMotion }) {
         </a>
       </div>
 
-      <div className="relative mx-auto mt-8 w-full max-w-xs sm:max-w-sm md:max-w-md">
+      <div className="relative mx-auto mt-8 w-full max-w-[min(100%,24rem)] sm:max-w-sm md:max-w-md">
         <button
           type="button"
           onClick={goPrev}
-          className="absolute left-0 top-1/2 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:h-10 sm:w-10"
+          className="absolute left-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:left-2 sm:h-10 sm:w-10"
           aria-label={copy.showcasePrev}
         >
           ‹
@@ -518,7 +554,7 @@ function ShowcaseVitrine({ reducedMotion }) {
         <button
           type="button"
           onClick={goNext}
-          className="absolute right-0 top-1/2 z-20 flex h-9 w-9 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:h-10 sm:w-10"
+          className="absolute right-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:right-2 sm:h-10 sm:w-10"
           aria-label={copy.showcaseNext}
         >
           ›
@@ -599,8 +635,8 @@ function WhyChooseUs() {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <div className="section-shell rounded-2xl p-8 md:p-10">
-        <h2 className="text-3xl font-semibold">{copy.whyTitle}</h2>
+      <div className="section-shell rounded-2xl px-5 py-8 sm:p-8 md:p-10">
+        <h2 className="text-2xl font-semibold sm:text-3xl">{copy.whyTitle}</h2>
         <p className="mt-4 max-w-3xl text-slate-300">{copy.whyBody}</p>
       </div>
     </motion.section>
@@ -618,7 +654,7 @@ function Results() {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <h2 className="text-3xl font-semibold">{copy.resultsTitle}</h2>
+      <h2 className="text-2xl font-semibold sm:text-3xl">{copy.resultsTitle}</h2>
       <motion.div
         variants={fadeStagger}
         initial="hidden"
@@ -662,7 +698,7 @@ function AnimatedMetric({ value, prefix = "", suffix = "" }) {
   }, [inView, ref, value])
 
   return (
-    <p ref={containerRef} className="text-3xl font-semibold text-cyan-200">
+    <p ref={containerRef} className="text-2xl font-semibold text-cyan-200 sm:text-3xl">
       {prefix}
       {Math.round(display)}
       {suffix}
@@ -680,8 +716,8 @@ function LocalSEO() {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <div className="section-shell rounded-2xl p-8">
-        <h2 className="text-3xl font-semibold">{copy.localTitle}</h2>
+      <div className="section-shell rounded-2xl px-5 py-8 sm:p-8">
+        <h2 className="text-2xl font-semibold sm:text-3xl">{copy.localTitle}</h2>
         <p className="mt-4 text-slate-300">{copy.localBody}</p>
         <div className="mt-6 flex flex-wrap gap-3">
           {copy.seoKeywords.map((keyword) => (
@@ -718,19 +754,19 @@ function Testimonials({ reducedMotion }) {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <h2 className="text-3xl font-semibold">{copy.testimonialsTitle}</h2>
+      <h2 className="text-2xl font-semibold sm:text-3xl">{copy.testimonialsTitle}</h2>
       <div className="section-shell mt-8 overflow-hidden rounded-2xl p-3 md:p-4">
         <motion.div
-          className="flex gap-4"
+          className="flex w-full"
           animate={{ x: `-${index * 100}%` }}
           transition={{ duration: reducedMotion ? 0 : 0.65, ease: "easeInOut" }}
         >
           {list.map((item) => (
             <figure
               key={item.author}
-              className="testimonial-slide min-w-full rounded-xl border border-white/12 bg-white/4 p-6"
+              className="testimonial-slide min-w-full shrink-0 rounded-xl border border-white/12 bg-white/4 p-4 sm:p-6"
             >
-              <blockquote className="text-lg leading-relaxed text-slate-200">
+              <blockquote className="text-base leading-relaxed text-slate-200 sm:text-lg">
                 &ldquo;{item.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 text-sm text-slate-400">
@@ -769,8 +805,8 @@ function FinalCTA() {
       viewport={{ once: true, margin: "-100px" }}
       className="pt-20"
     >
-      <div className="section-shell gradient-border rounded-3xl px-8 py-14 text-center">
-        <h2 className="text-3xl font-semibold md:text-4xl">{copy.finalTitle}</h2>
+      <div className="section-shell gradient-border rounded-3xl px-5 py-10 text-center sm:px-8 sm:py-14">
+        <h2 className="text-2xl font-semibold sm:text-3xl md:text-4xl">{copy.finalTitle}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-300">{copy.finalBody}</p>
         <a
           href="mailto:hello@ggmarketingaustin.com"
