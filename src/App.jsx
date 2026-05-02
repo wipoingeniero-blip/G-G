@@ -232,16 +232,16 @@ function Navbar() {
           <LogoMark />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
-              G&G Marketing & Advertising
+              {copy.navBrandName}
             </p>
-            <p className="text-xs text-slate-300">Austin, Texas</p>
+            <p className="text-xs text-slate-300">{copy.navBrandLocation}</p>
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <LanguageToggle />
           <a
             href="#contact"
-            className="rounded-lg border border-cyan-300/45 px-3 py-2 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300/15 sm:px-4 sm:text-sm"
+            className="rounded-lg border border-cyan-300/45 px-2 py-2 text-center text-[10px] font-semibold leading-tight text-cyan-100 transition hover:bg-cyan-300/15 min-[400px]:px-3 min-[400px]:text-xs sm:px-4 sm:text-sm"
           >
             {copy.navCta}
           </a>
@@ -421,7 +421,7 @@ function ServicesSpotlightCarousel({ reducedMotion }) {
     () =>
       MR_WIPO_CAROUSEL_SRCS.map((src, idx) => ({
         src,
-        alt: copy.mrWipoAlts[idx] ?? "Mr. WIPO",
+        alt: copy.mrWipoAlts[idx] ?? copy.mrWipoAltFallback,
       })),
     [copy],
   )

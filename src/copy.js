@@ -1,12 +1,14 @@
 export const STRINGS = {
   en: {
     logoAlt: "G&G Marketing & Advertising logo",
-    navCta: "Book Free Strategy Call",
+    navBrandName: "G&G Marketing & Advertising",
+    navBrandLocation: "Austin, Texas",
+    navCta: "CREATE YOUR STRATEGY",
     heroBadge: "Serving Austin, Texas Businesses",
     heroTitle: "Austin's Premier Marketing & Advertising Agency",
     heroSub:
       "Helping Austin businesses scale through high-performance marketing, paid advertising, branding, and digital growth systems.",
-    heroCta1: "Book Free Strategy Call",
+    heroCta1: "CREATE YOUR STRATEGY",
     heroCta2: "View Our Services",
     dashTitle: "Growth Dashboard",
     dashLive: "Live",
@@ -22,6 +24,7 @@ export const STRINGS = {
     mrWipoSub:
       "Automatic carousel — Mr. WIPO 3D mascots, packaging and product shots, plus premium client identity (Auto Techs Mobile).",
     mrWipoDots: "Select spotlight visual",
+    mrWipoAltFallback: "Spotlight carousel image",
     langToggleAria: "Switch between English and Spanish",
     mrWipoAlts: [
       "Mr. WIPO chef mascot 3D render",
@@ -89,12 +92,14 @@ export const STRINGS = {
   },
   es: {
     logoAlt: "Logo de G&G Marketing & Publicidad",
-    navCta: "Reservar llamada gratuita",
+    navBrandName: "G&G Marketing & Publicidad",
+    navBrandLocation: "Austin, Texas",
+    navCta: "CREA TU ESTRATEGIA",
     heroBadge: "Atendemos negocios en Austin, Texas",
     heroTitle: "La agencia líder de marketing y publicidad en Austin",
     heroSub:
       "Impulsamos empresas en Austin con marketing de alto rendimiento, publicidad paga, branding y sistemas digitales de crecimiento.",
-    heroCta1: "Reservar llamada gratuita",
+    heroCta1: "CREA TU ESTRATEGIA",
     heroCta2: "Ver servicios",
     dashTitle: "Panel de crecimiento",
     dashLive: "En vivo",
@@ -103,13 +108,14 @@ export const STRINGS = {
     dashCpl: "CPL",
     dashPipeline: "+$420K en pipeline influenciado",
     dashStack: "Creatividad y rendimiento",
-    servicesTitle: "Services Built for US Market Growth",
+    servicesTitle: "Servicios diseñados para el crecimiento en el mercado de EE. UU.",
     serviceCardDesc:
       "Estrategia, creatividad y ejecución alineadas a un crecimiento medible del embudo comercial y de los ingresos.",
     mrWipoTitle: "Destacado creativo: marcas en movimiento",
     mrWipoSub:
       "Carrusel automático: mascotas 3D Mr. WIPO, empaque y fotografía de producto, más identidad premium para clientes (Auto Techs Mobile).",
     mrWipoDots: "Elegir visual del destacado",
+    mrWipoAltFallback: "Imagen del carrusel destacado",
     langToggleAria: "Cambiar entre español e inglés",
     mrWipoAlts: [
       "Mascota 3D Mr. WIPO chef",
@@ -122,7 +128,7 @@ export const STRINGS = {
       "Estrategia de marca",
       "Publicidad paga",
       "Gestión de redes sociales",
-      "Growth marketing",
+      "Marketing de crecimiento",
       "Automatización de embudos",
       "Diseño web orientado a conversión",
     ],
@@ -172,8 +178,8 @@ export const STRINGS = {
     ],
     finalTitle: "¿Listo para escalar tu negocio en Austin?",
     finalBody:
-      "Agenda una llamada estratégica gratuita con G&G Marketing & Publicidad y recibe una hoja de ruta de crecimiento para tu siguiente etapa de expansión de ingresos.",
-    finalCta: "Reservar llamada gratuita",
+      "Con G&G Marketing & Publicidad, recibirás una hoja de ruta de crecimiento personalizada para la siguiente etapa de la expansión de tus ingresos.",
+    finalCta: "CREA TU ESTRATEGIA",
   },
 }
 
