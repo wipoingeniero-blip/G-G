@@ -9,7 +9,7 @@ import {
   useTransform,
 } from "framer-motion"
 import { Link } from "react-router-dom"
-import { getPortfolioSlides, getServicesForLang } from "./copy"
+import { getServicesForLang, getVerticalCaseStudies } from "./copy"
 import { LanguageToggle, useLang } from "./i18n"
 import { STRATEGY_CONFIRM_PATH } from "./routes.js"
 
@@ -75,6 +75,7 @@ function AppShell() {
       <div className="mx-auto w-full max-w-6xl">
         <Navbar postIntroDelay={postIntroDelay} />
         <Hero reducedMotion={reducedMotion} heroEnterDelay={heroEnterDelay} />
+        <IcSegments key={`icp-${lang}`} reducedMotion={reducedMotion} />
         <Services />
         <ServicesSpotlightCarousel key={`services-spotlight-${lang}`} reducedMotion={reducedMotion} />
         <ShowcaseVitrine key={`showcase-${lang}`} reducedMotion={reducedMotion} />
@@ -313,7 +314,7 @@ function Hero({ reducedMotion, heroEnterDelay }) {
                 <span>{copy.heroCta1}</span>
               </a>
               <a
-                href="#services"
+                href="#work"
                 className="group rounded-xl border border-white/20 px-6 py-3 font-semibold transition hover:border-cyan-200/80 hover:bg-cyan-400/8"
               >
                 <span className="inline-flex items-center gap-2">
@@ -393,6 +394,53 @@ function HeroVisual({ reducedMotion, floatB }) {
   )
 }
 
+function IcSegments({ reducedMotion }) {
+  const { copy } = useLang()
+  const segments = copy.icpSegments
+  return (
+    <motion.section
+      id="segments"
+      variants={reveal}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-100px" }}
+      className="pt-20"
+      aria-labelledby="icp-heading"
+    >
+      <h2 id="icp-heading" className="text-2xl font-semibold sm:text-3xl">
+        {copy.icpTitle}
+      </h2>
+      <motion.div
+        variants={fadeStagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-120px" }}
+        className="mt-8 grid gap-4 sm:grid-cols-2"
+      >
+        {segments.map((segment) => (
+          <motion.div
+            key={segment.title}
+            variants={cardItem}
+            whileHover={reducedMotion ? {} : { y: -6 }}
+            className="section-shell relative overflow-hidden rounded-2xl border border-white/10 p-5 sm:p-6"
+          >
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-fuchsia-300/50 to-transparent opacity-90" />
+            <h3 className="text-lg font-semibold text-slate-100">{segment.title}</h3>
+            <ul className="mt-4 space-y-2 text-sm text-slate-400">
+              {segment.bullets.map((line) => (
+                <li key={line} className="flex gap-2">
+                  <span className="mt-0.5 shrink-0 text-cyan-300/90">→</span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.section>
+  )
+}
+
 function Services() {
   const { lang, copy } = useLang()
   const servicesList = useMemo(() => getServicesForLang(lang), [lang])
@@ -412,7 +460,7 @@ function Services() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-120px" }}
-        className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+        className="mt-8 grid gap-4 md:grid-cols-2"
       >
         {servicesList.map((service) => (
           <motion.div
@@ -426,7 +474,7 @@ function Services() {
               {service.icon}
             </div>
             <p className="font-medium text-slate-100">{service.name}</p>
-            <p className="mt-3 text-sm text-slate-400">{copy.serviceCardDesc}</p>
+            <p className="mt-3 text-sm text-slate-400">{service.desc}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -527,12 +575,7 @@ function ServicesSpotlightCarousel({ reducedMotion }) {
 
 function ShowcaseVitrine({ reducedMotion }) {
   const { lang, copy } = useLang()
-  const portfolioSlides = useMemo(() => getPortfolioSlides(lang), [lang])
-  const [slide, setSlide] = useState(0)
-  const total = portfolioSlides.length
-
-  const goPrev = () => setSlide((i) => (i - 1 + total) % total)
-  const goNext = () => setSlide((i) => (i + 1) % total)
+  const verticalCases = useMemo(() => getVerticalCaseStudies(lang), [lang])
 
   return (
     <motion.section
@@ -561,85 +604,47 @@ function ShowcaseVitrine({ reducedMotion }) {
         </a>
       </div>
 
-      <div className="relative mx-auto mt-8 w-full max-w-[min(100%,24rem)] sm:max-w-sm md:max-w-md">
-        <button
-          type="button"
-          onClick={goPrev}
-          className="absolute left-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:left-2 sm:h-10 sm:w-10"
-          aria-label={copy.showcasePrev}
-        >
-          ‹
-        </button>
-        <button
-          type="button"
-          onClick={goNext}
-          className="absolute right-1 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-slate-950/90 text-lg text-cyan-100 shadow-lg backdrop-blur-md transition hover:border-cyan-300/50 hover:bg-slate-900 sm:right-2 sm:h-10 sm:w-10"
-          aria-label={copy.showcaseNext}
-        >
-          ›
-        </button>
-
-        <div className="section-shell gradient-border overflow-hidden rounded-2xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
-          <div className="overflow-hidden rounded-xl">
-            <motion.div
-              className="flex"
-              animate={{ x: `-${slide * 100}%` }}
-              transition={{ duration: reducedMotion ? 0 : 0.45, ease: [0.32, 0.72, 0, 1] }}
-            >
-              {portfolioSlides.map((work, index) => (
-                <article
-                  key={`${work.src}-${lang}`}
-                  className="group relative flex min-w-full shrink-0 flex-col items-center px-1"
-                  aria-hidden={index !== slide}
-                >
-                  <div
-                    className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br ${work.accent} opacity-80`}
-                  />
-                  <div className="relative z-10 flex w-full max-w-full flex-col items-center gap-2 pb-2 pt-1">
-                    <div className="flex w-full items-start justify-between gap-2 px-1">
-                      <div className="min-w-0 flex-1 text-left">
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-100/90 md:text-xs">
-                          {work.tag}
-                        </p>
-                        <h3 className="text-base font-semibold text-white md:text-lg">{work.title}</h3>
-                      </div>
-                      <span className="shrink-0 rounded-full border border-white/15 bg-white/5 px-2 py-0.5 text-[9px] font-medium uppercase tracking-wider text-slate-400">
-                        {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <div className="relative mx-auto flex aspect-[3/4] w-full max-h-[220px] items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-black/50 md:max-h-[260px]">
-                      <img
-                        src={work.src}
-                        alt={`${work.title}`}
-                        loading={index === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                        className="max-h-full max-w-full object-contain object-center transition duration-500 group-hover:scale-[1.03]"
-                      />
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="mt-4 flex justify-center gap-1.5" role="tablist" aria-label={copy.showcaseDots}>
-          {portfolioSlides.map((work, i) => (
-            <button
-              key={`${work.src}-dot-${lang}`}
-              type="button"
-              role="tab"
-              aria-selected={i === slide}
-              onClick={() => setSlide(i)}
-              className={`h-2 rounded-full transition-all ${
-                i === slide ? "w-6 bg-cyan-200" : "w-2 bg-white/25 hover:bg-white/40"
-              }`}
-              aria-label={`${copy.showcaseGoTo} ${work.title}`}
+      <motion.div
+        variants={fadeStagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-80px" }}
+        className="mx-auto mt-10 grid max-w-5xl gap-5 sm:grid-cols-2"
+      >
+        {verticalCases.map((work, index) => (
+          <motion.article
+            key={`${work.verticalHeading}-${work.src}`}
+            variants={cardItem}
+            whileHover={reducedMotion ? {} : { y: -4 }}
+            className="section-shell gradient-border group relative overflow-hidden rounded-2xl p-4 shadow-[0_16px_40px_rgba(0,0,0,0.28)]"
+          >
+            <div
+              className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br ${work.accent} opacity-75`}
             />
-          ))}
-        </div>
-      </div>
+            <div className="relative z-10 flex flex-col gap-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-fuchsia-100/95">
+                {work.verticalHeading}
+              </p>
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-100/90 md:text-xs">
+                  {work.tag}
+                </p>
+                <h3 className="text-base font-semibold text-white md:text-lg">{work.title}</h3>
+              </div>
+              <div className="relative flex aspect-[4/3] w-full max-h-[200px] items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/50 md:max-h-[220px]">
+                <img
+                  src={work.src}
+                  alt={`${work.verticalHeading}: ${work.title}`}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className="max-h-full max-w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/65 via-transparent to-transparent" />
+              </div>
+            </div>
+          </motion.article>
+        ))}
+      </motion.div>
     </motion.section>
   )
 }
@@ -837,7 +842,9 @@ function FinalCTA() {
     >
       <div className="section-shell gradient-border rounded-3xl px-5 py-10 text-center sm:px-8 sm:py-14">
         <h2 className="text-2xl font-semibold sm:text-3xl md:text-4xl">{copy.finalTitle}</h2>
-        <p className="mx-auto mt-4 max-w-2xl text-slate-300">{copy.finalBody}</p>
+        {copy.finalBody ? (
+          <p className="mx-auto mt-4 max-w-2xl text-slate-300">{copy.finalBody}</p>
+        ) : null}
         <Link
           to={STRATEGY_CONFIRM_PATH}
           className="mt-8 inline-flex rounded-xl bg-gradient-to-r from-cyan-400 to-fuchsia-500 px-7 py-3 font-semibold text-slate-950 transition hover:brightness-110"

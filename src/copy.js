@@ -3,13 +3,13 @@ export const STRINGS = {
     logoAlt: "G&G Marketing & Advertising logo",
     navBrandName: "G&G Marketing & Advertising",
     navBrandLocation: "Austin, Texas",
-    navCta: "CREATE YOUR STRATEGY",
-    heroBadge: "Serving Austin, Texas Businesses",
-    heroTitle: "Austin's Premier Marketing & Advertising Agency",
+    navCta: "Book Your Growth Audit",
+    heroBadge: "Growth systems for ambitious brands",
+    heroTitle: "We Build Revenue-Driven Growth Systems for Ambitious Brands",
     heroSub:
-      "Helping Austin businesses scale through high-performance marketing, paid advertising, branding, and digital growth systems.",
-    heroCta1: "CREATE YOUR STRATEGY",
-    heroCta2: "View Our Services",
+      "From local businesses to SaaS startups, we engineer acquisition systems, branding, and performance marketing strategies that turn growth into a predictable process.",
+    heroCta1: "Book Your Growth Audit",
+    heroCta2: "See How We Scale Brands",
     dashTitle: "Growth Dashboard",
     dashLive: "Live",
     dashRoas: "Paid Media ROAS",
@@ -17,9 +17,26 @@ export const STRINGS = {
     dashCpl: "CPL",
     dashPipeline: "+$420K Pipeline Influenced",
     dashStack: "Creative + Performance Stack",
-    servicesTitle: "Services Built for US Market Growth",
-    serviceCardDesc:
-      "Strategy, creative, and execution aligned to measurable pipeline and revenue growth.",
+    icpTitle: "Built for Brands Ready to Scale",
+    icpSegments: [
+      {
+        title: "Local Businesses / SMB",
+        bullets: ["Lead Generation", "Local Paid Ads", "Funnel Optimization"],
+      },
+      {
+        title: "Mid-Market / Enterprise",
+        bullets: ["Multi-Channel Growth Systems", "Brand Expansion Strategy", "Scalable Performance Infrastructure"],
+      },
+      {
+        title: "Personal Brands / Info Products",
+        bullets: ["Offer Positioning", "Webinar / Funnel Systems", "Paid Acquisition at Scale"],
+      },
+      {
+        title: "Startups / SaaS",
+        bullets: ["User Acquisition", "Conversion Optimization", "GTM Growth Strategy"],
+      },
+    ],
+    servicesTitle: "Services That Drive Revenue",
     mrWipoTitle: "Creative spotlight: brands in motion",
     mrWipoSub:
       "Automatic carousel — Mr. WIPO 3D mascots, packaging and product shots, plus premium client identity (Auto Techs Mobile).",
@@ -34,25 +51,41 @@ export const STRINGS = {
       "Auto Techs Mobile logo — brake specialist branding",
     ],
     services: [
-      "Branding Strategy",
-      "Paid Advertising",
-      "Social Media Management",
-      "Growth Marketing",
-      "Funnel Automation",
-      "Conversion-Focused Web Design",
+      {
+        name: "Paid Media",
+        desc: "Performance campaigns engineered for profitable customer acquisition.",
+      },
+      {
+        name: "Brand Strategy",
+        desc: "Positioning and messaging that increase trust and market authority.",
+      },
+      {
+        name: "Web Development",
+        desc: "Conversion-optimized digital experiences built to sell.",
+      },
+      {
+        name: "Funnel Systems",
+        desc: "End-to-end acquisition funnels engineered for predictable growth.",
+      },
     ],
-    showcaseLabel: "Showcase",
-    showcaseTitle: "Featured work",
+    showcaseLabel: "Case studies",
+    showcaseTitle: "Results by vertical",
     showcaseSub:
-      "A compact carousel — campaigns, local branding, and digital pieces at a glance.",
+      "SMB, SaaS, personal brands, and enterprise — proof across the segments we scale.",
+    caseStudyVerticals: [
+      "SMB Success Stories",
+      "SaaS Growth Results",
+      "Personal Brand Funnels",
+      "Enterprise Campaign Wins",
+    ],
     showcaseCta: "I want this →",
     showcasePrev: "Previous slide",
     showcaseNext: "Next slide",
     showcaseDots: "Select project",
     showcaseGoTo: "View",
-    whyTitle: "Why Austin Businesses Choose Us",
+    whyTitle: "Strategy Over Improvisation",
     whyBody:
-      "We combine strategic clarity, premium creative execution, and conversion-focused systems tailored for Austin's competitive business ecosystem. Every campaign is designed to elevate brand authority and produce measurable growth.",
+      "We are a growth agency focused on acquisition and scale systems for brands that want to grow with intent — not guesswork. Strategic clarity, premium execution, and infrastructure that compounds.",
     resultsTitle: "Results That Build Market Authority",
     metrics: [
       "Campaigns Managed",
@@ -60,9 +93,9 @@ export const STRINGS = {
       "Brands Scaled",
       "Client Retention",
     ],
-    localTitle: "Local SEO Focus: Austin, Texas",
+    localTitle: "Headquartered in Austin · Built for National Scale",
     localBody:
-      "G&G Marketing & Advertising is a high-performance digital partner for growth-focused brands searching for a trusted marketing agency in Austin TX.",
+      "Based in Austin, Texas, with systems and campaigns built for ambitious brands locally and beyond — from SMB to SaaS and enterprise.",
     seoKeywords: [
       "Marketing Agency Austin TX",
       "Advertising Agency Austin",
@@ -85,23 +118,23 @@ export const STRINGS = {
         role: "CEO, B2B Technology Company in Austin",
       },
     ],
-    finalTitle: "Ready to Scale Your Austin Business?",
-    finalBody:
-      "With G&G Marketing & Advertising, you will receive a customized growth roadmap for the next stage of your revenue expansion.",
-    finalCta: "CREATE YOUR STRATEGY",
+    finalTitle:
+      "Whether You're Scaling a Local Brand or a Global Startup — We Build Growth Systems That Perform",
+    finalBody: "",
+    finalCta: "Schedule Your Strategy Call",
     footerCopyright: "Copyright: G&G DIGITAL MARKETING 2026",
   },
   es: {
     logoAlt: "Logo de G&G Marketing & Publicidad",
     navBrandName: "G&G Marketing & Publicidad",
     navBrandLocation: "Austin, Texas",
-    navCta: "CREA TU ESTRATEGIA",
-    heroBadge: "Atendemos negocios en Austin, Texas",
-    heroTitle: "La agencia líder de marketing y publicidad en Austin",
+    navCta: "Reserva tu auditoría de crecimiento",
+    heroBadge: "Sistemas de crecimiento para marcas ambiciosas",
+    heroTitle: "Construimos sistemas de crecimiento orientados a ingresos para marcas ambiciosas",
     heroSub:
-      "Impulsamos empresas en Austin con marketing de alto rendimiento, publicidad paga, branding y sistemas digitales de crecimiento.",
-    heroCta1: "CREA TU ESTRATEGIA",
-    heroCta2: "Ver servicios",
+      "Desde negocios locales hasta startups SaaS, diseñamos sistemas de adquisición, branding y marketing de performance que convierten el crecimiento en un proceso predecible.",
+    heroCta1: "Reserva tu auditoría de crecimiento",
+    heroCta2: "Cómo escalamos marcas",
     dashTitle: "Panel de crecimiento",
     dashLive: "En vivo",
     dashRoas: "ROAS en medios pagos",
@@ -109,9 +142,30 @@ export const STRINGS = {
     dashCpl: "CPL",
     dashPipeline: "+$420K en pipeline influenciado",
     dashStack: "Creatividad y rendimiento",
-    servicesTitle: "Servicios diseñados para el crecimiento en el mercado de EE. UU.",
-    serviceCardDesc:
-      "Estrategia, creatividad y ejecución alineadas a un crecimiento medible del embudo comercial y de los ingresos.",
+    icpTitle: "Pensado para marcas listas para escalar",
+    icpSegments: [
+      {
+        title: "Negocios locales / PyME",
+        bullets: ["Generación de leads", "Anuncios locales pagos", "Optimización de embudos"],
+      },
+      {
+        title: "Mid-market / Enterprise",
+        bullets: [
+          "Sistemas de crecimiento multicanal",
+          "Estrategia de expansión de marca",
+          "Infraestructura de performance escalable",
+        ],
+      },
+      {
+        title: "Marcas personales / infoproductos",
+        bullets: ["Posicionamiento de oferta", "Sistemas webinar / embudo", "Adquisición pagada a escala"],
+      },
+      {
+        title: "Startups / SaaS",
+        bullets: ["Adquisición de usuarios", "Optimización de conversión", "Estrategia de crecimiento GTM"],
+      },
+    ],
+    servicesTitle: "Servicios que impulsan ingresos",
     mrWipoTitle: "Destacado creativo: marcas en movimiento",
     mrWipoSub:
       "Carrusel automático: mascotas 3D Mr. WIPO, empaque y fotografía de producto, más identidad premium para clientes (Auto Techs Mobile).",
@@ -126,25 +180,41 @@ export const STRINGS = {
       "Logo Auto Techs Mobile — especialista en frenos",
     ],
     services: [
-      "Estrategia de marca",
-      "Publicidad paga",
-      "Gestión de redes sociales",
-      "Marketing de crecimiento",
-      "Automatización de embudos",
-      "Diseño web orientado a conversión",
+      {
+        name: "Medios pagos",
+        desc: "Campañas de performance diseñadas para una adquisición de clientes rentable.",
+      },
+      {
+        name: "Estrategia de marca",
+        desc: "Posicionamiento y mensajes que aumentan la confianza y la autoridad en el mercado.",
+      },
+      {
+        name: "Desarrollo web",
+        desc: "Experiencias digitales optimizadas para conversión, pensadas para vender.",
+      },
+      {
+        name: "Sistemas de embudo",
+        desc: "Embudos de adquisición de punta a punta, diseñados para un crecimiento predecible.",
+      },
     ],
-    showcaseLabel: "Vitrina",
-    showcaseTitle: "Trabajos destacados",
+    showcaseLabel: "Casos de estudio",
+    showcaseTitle: "Resultados por vertical",
     showcaseSub:
-      "Carrusel compacto: campañas, branding local y piezas digitales en un solo vistazo.",
+      "PyME, SaaS, marcas personales y enterprise — resultados en los segmentos que escalamos.",
+    caseStudyVerticals: [
+      "Historias de éxito PyME",
+      "Resultados de crecimiento SaaS",
+      "Embudos de marca personal",
+      "Campañas enterprise ganadoras",
+    ],
     showcaseCta: "Quiero algo así →",
     showcasePrev: "Diapositiva anterior",
     showcaseNext: "Diapositiva siguiente",
     showcaseDots: "Seleccionar proyecto",
     showcaseGoTo: "Ver",
-    whyTitle: "Por qué eligen a G&G en Austin",
+    whyTitle: "Estrategia, no improvisación",
     whyBody:
-      "Unimos claridad estratégica, creatividad premium y sistemas enfocados en conversión, adaptados al ecosistema competitivo de Austin. Cada campaña eleva la autoridad de marca y genera crecimiento medible.",
+      "Somos una agencia de crecimiento enfocada en sistemas de adquisición y escalamiento para marcas que quieren crecer con intención — no a ciegas. Claridad estratégica, ejecución premium e infraestructura que se acumula.",
     resultsTitle: "Resultados que construyen autoridad",
     metrics: [
       "Campañas gestionadas",
@@ -152,9 +222,9 @@ export const STRINGS = {
       "Marcas escaladas",
       "Retención de clientes",
     ],
-    localTitle: "SEO local: Austin, Texas",
+    localTitle: "Sede en Austin · Pensado para escala nacional",
     localBody:
-      "G&G Marketing & Publicidad es un socio digital de alto rendimiento para marcas en crecimiento que buscan una agencia de confianza en Austin, TX.",
+      "Con base en Austin, Texas, con sistemas y campañas para marcas ambiciosas en lo local y más allá — de PyME a SaaS y enterprise.",
     seoKeywords: [
       "Agencia de marketing Austin TX",
       "Agencia de publicidad Austin",
@@ -177,18 +247,22 @@ export const STRINGS = {
         role: "CEO, empresa B2B de tecnología en Austin",
       },
     ],
-    finalTitle: "¿Listo para escalar tu negocio en Austin?",
-    finalBody:
-      "Con G&G Marketing & Publicidad, recibirás una hoja de ruta de crecimiento personalizada para la siguiente etapa de la expansión de tus ingresos.",
-    finalCta: "CREA TU ESTRATEGIA",
+    finalTitle:
+      "Ya sea que escales una marca local o una startup global — construimos sistemas de crecimiento que rinden",
+    finalBody: "",
+    finalCta: "Agenda tu llamada de estrategia",
     footerCopyright: "Copyright: G&G DIGITAL MARKETING 2026",
   },
 }
 
-const serviceIcons = ["◇", "↗", "◎", "△", "⌁", "◉"]
+const serviceIcons = ["◇", "↗", "◎", "△"]
 
 export function getServicesForLang(lang) {
-  return STRINGS[lang].services.map((name, i) => ({ name, icon: serviceIcons[i] }))
+  return STRINGS[lang].services.map((item, i) => ({
+    name: item.name,
+    desc: item.desc,
+    icon: serviceIcons[i],
+  }))
 }
 
 const portfolioAccents = [
@@ -224,5 +298,17 @@ export function getPortfolioSlides(lang) {
     src,
     accent: portfolioAccents[i],
     ...portfolioCopy[lang][i],
+  }))
+}
+
+/** Slide index order: SMB (Auto Techs), SaaS (Growth), Personal (Social), Enterprise (Brand & Web) */
+const CASE_STUDY_VERTICAL_SLIDE_ORDER = [1, 0, 2, 3]
+
+export function getVerticalCaseStudies(lang) {
+  const slides = getPortfolioSlides(lang)
+  const headings = STRINGS[lang].caseStudyVerticals
+  return CASE_STUDY_VERTICAL_SLIDE_ORDER.map((slideIndex, i) => ({
+    verticalHeading: headings[i],
+    ...slides[slideIndex],
   }))
 }
