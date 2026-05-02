@@ -8,8 +8,10 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion"
+import { Link } from "react-router-dom"
 import { getPortfolioSlides, getServicesForLang } from "./copy"
-import { LangProvider, LanguageToggle, useLang } from "./i18n"
+import { LanguageToggle, useLang } from "./i18n"
+import { STRATEGY_CONFIRM_PATH } from "./routes.js"
 
 const logoPath = "/logo.png"
 
@@ -50,24 +52,29 @@ const cardItem = {
 }
 
 function App() {
-  return (
-    <LangProvider>
-      <AppShell />
-    </LangProvider>
-  )
+  return <AppShell />
 }
 
 function AppShell() {
   const reducedMotion = useReducedMotion()
   const { lang } = useLang()
+  const introAlreadySeen = useMemo(() => {
+    try {
+      return sessionStorage.getItem("gg-intro-shown") === "1"
+    } catch {
+      return false
+    }
+  }, [])
+  const postIntroDelay = introAlreadySeen ? 0 : 2.35
+  const heroEnterDelay = introAlreadySeen ? 0 : 2.55
 
   return (
     <main className="relative overflow-x-hidden px-4 pb-[max(6rem,env(safe-area-inset-bottom,0px))] pt-[max(0px,env(safe-area-inset-top,0px))] text-slate-100 sm:px-6 lg:px-10">
       <AmbientBackground reducedMotion={reducedMotion} />
-      <IntroOverlay />
+      {!introAlreadySeen ? <IntroOverlay /> : null}
       <div className="mx-auto w-full max-w-6xl">
-        <Navbar />
-        <Hero reducedMotion={reducedMotion} />
+        <Navbar postIntroDelay={postIntroDelay} />
+        <Hero reducedMotion={reducedMotion} heroEnterDelay={heroEnterDelay} />
         <Services />
         <ServicesSpotlightCarousel key={`services-spotlight-${lang}`} reducedMotion={reducedMotion} />
         <ShowcaseVitrine key={`showcase-${lang}`} reducedMotion={reducedMotion} />
@@ -175,6 +182,17 @@ function getIntroFlyTarget() {
 function IntroOverlay() {
   const fly = useMemo(() => getIntroFlyTarget(), [])
 
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      try {
+        sessionStorage.setItem("gg-intro-shown", "1")
+      } catch {
+        /* private mode / blocked storage */
+      }
+    }, 2900)
+    return () => window.clearTimeout(id)
+  }, [])
+
   return (
     <motion.div
       className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-[#05070f]"
@@ -218,13 +236,13 @@ function IntroOverlay() {
   )
 }
 
-function Navbar() {
+function Navbar({ postIntroDelay }) {
   const { copy } = useLang()
   return (
     <motion.header
       initial={{ opacity: 0, y: -14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 2.35, duration: 0.7 }}
+      transition={{ delay: postIntroDelay, duration: 0.7 }}
       className="sticky z-40 mt-4 top-[max(1rem,env(safe-area-inset-top,0px))]"
     >
       <nav className="section-shell gradient-border flex flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3 sm:px-5">
@@ -251,7 +269,7 @@ function Navbar() {
   )
 }
 
-function Hero({ reducedMotion }) {
+function Hero({ reducedMotion, heroEnterDelay }) {
   const { copy } = useLang()
   const yMotion = useMotionValue(0)
   const springY = useSpring(yMotion, { stiffness: 80, damping: 20, mass: 0.5 })
@@ -272,7 +290,7 @@ function Hero({ reducedMotion }) {
     <motion.section
       initial={{ opacity: 0, y: 26 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 2.55, duration: 0.8 }}
+      transition={{ delay: heroEnterDelay, duration: 0.8 }}
       className="pt-18"
     >
       <div className="section-shell gradient-border relative overflow-hidden rounded-3xl px-4 py-10 text-left sm:px-6 sm:py-12 md:px-12 md:py-14">
@@ -808,12 +826,12 @@ function FinalCTA() {
       <div className="section-shell gradient-border rounded-3xl px-5 py-10 text-center sm:px-8 sm:py-14">
         <h2 className="text-2xl font-semibold sm:text-3xl md:text-4xl">{copy.finalTitle}</h2>
         <p className="mx-auto mt-4 max-w-2xl text-slate-300">{copy.finalBody}</p>
-        <a
-          href="mailto:hello@ggmarketingaustin.com"
+        <Link
+          to={STRATEGY_CONFIRM_PATH}
           className="mt-8 inline-flex rounded-xl bg-gradient-to-r from-cyan-400 to-fuchsia-500 px-7 py-3 font-semibold text-slate-950 transition hover:brightness-110"
         >
           {copy.finalCta}
-        </a>
+        </Link>
       </div>
     </motion.section>
   )
