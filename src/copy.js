@@ -43,6 +43,10 @@ export const STRINGS = {
     mrWipoDots: "Select spotlight visual",
     mrWipoAltFallback: "Spotlight carousel image",
     langToggleAria: "Switch between English and Spanish",
+    introSkip: "Skip",
+    introSkipAria: "Skip intro animation",
+    introEnableSound: "Enable sound",
+    introTagline: "Engineering Digital Growth",
     mrWipoAlts: [
       "Mr. WIPO chef mascot 3D render",
       "Mr. WIPO french fries bag mascot",
@@ -172,6 +176,10 @@ export const STRINGS = {
     mrWipoDots: "Elegir visual del destacado",
     mrWipoAltFallback: "Imagen del carrusel destacado",
     langToggleAria: "Cambiar entre español e inglés",
+    introSkip: "Saltar",
+    introSkipAria: "Saltar animación de introducción",
+    introEnableSound: "Activar sonido",
+    introTagline: "Ingeniería del crecimiento digital",
     mrWipoAlts: [
       "Mascota 3D Mr. WIPO chef",
       "Mascota bolsa de papas Mr. WIPO",

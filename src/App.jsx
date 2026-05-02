@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import {
   animate,
   motion,
@@ -9,6 +9,8 @@ import {
   useTransform,
 } from "framer-motion"
 import { Link } from "react-router-dom"
+import { CinematicIntro } from "./CinematicIntro"
+import { hasIntroBeenSeenThisSession } from "./introSession.js"
 import { getServicesForLang, getVerticalCaseStudies } from "./copy"
 import { LanguageToggle, useLang } from "./i18n"
 import { STRATEGY_CONFIRM_PATH } from "./routes.js"
@@ -58,23 +60,27 @@ function App() {
 function AppShell() {
   const reducedMotion = useReducedMotion()
   const { lang } = useLang()
-  const introAlreadySeen = useMemo(() => {
-    try {
-      return sessionStorage.getItem("gg-intro-shown") === "1"
-    } catch {
-      return false
-    }
-  }, [])
-  const postIntroDelay = introAlreadySeen ? 0 : 2.35
-  const heroEnterDelay = introAlreadySeen ? 0 : 2.55
+  const [introUiReleased, setIntroUiReleased] = useState(() => hasIntroBeenSeenThisSession())
+  const [showIntroLayer, setShowIntroLayer] = useState(() => !hasIntroBeenSeenThisSession())
+  const onIntroReleased = useCallback(() => setIntroUiReleased(true), [])
+  const onIntroExited = useCallback(() => setShowIntroLayer(false), [])
 
   return (
     <main className="relative overflow-x-hidden px-4 pb-[max(6rem,env(safe-area-inset-bottom,0px))] pt-[max(0px,env(safe-area-inset-top,0px))] text-slate-100 sm:px-6 lg:px-10">
       <AmbientBackground reducedMotion={reducedMotion} />
-      {!introAlreadySeen ? <IntroOverlay /> : null}
-      <div className="mx-auto w-full max-w-6xl">
-        <Navbar postIntroDelay={postIntroDelay} />
-        <Hero reducedMotion={reducedMotion} heroEnterDelay={heroEnterDelay} />
+      {showIntroLayer ? (
+        <CinematicIntro
+          onReleased={onIntroReleased}
+          onExited={onIntroExited}
+          reducedMotionPref={reducedMotion}
+        />
+      ) : null}
+      <div
+        className="mx-auto w-full max-w-6xl"
+        style={{ pointerEvents: introUiReleased ? "auto" : "none" }}
+      >
+        <Navbar introReleased={introUiReleased} />
+        <Hero reducedMotion={reducedMotion} introReleased={introUiReleased} />
         <IcSegments key={`icp-${lang}`} reducedMotion={reducedMotion} />
         <Services />
         <ServicesSpotlightCarousel key={`services-spotlight-${lang}`} reducedMotion={reducedMotion} />
@@ -153,98 +159,17 @@ function LogoMark({ className = "h-11 w-11" }) {
   )
 }
 
-function getIntroFlyTarget() {
-  if (typeof window === "undefined") {
-    return { x: -300, y: -250, scale: 0.44, logoClass: "h-24 w-24" }
-  }
-  const w = window.innerWidth
-  const h = window.innerHeight
-  if (w < 400) {
-    return {
-      x: -Math.min(140, w * 0.32),
-      y: -Math.min(120, h * 0.22),
-      scale: 0.36,
-      logoClass: "h-20 w-20",
-    }
-  }
-  if (w < 640) {
-    return {
-      x: -Math.min(200, w * 0.38),
-      y: -Math.min(170, h * 0.26),
-      scale: 0.4,
-      logoClass: "h-[5.5rem] w-[5.5rem]",
-    }
-  }
-  if (w < 900) {
-    return { x: -240, y: -210, scale: 0.42, logoClass: "h-24 w-24" }
-  }
-  return { x: -320, y: -270, scale: 0.45, logoClass: "h-24 w-24" }
-}
-
-function IntroOverlay() {
-  const fly = useMemo(() => getIntroFlyTarget(), [])
-
-  useEffect(() => {
-    const id = window.setTimeout(() => {
-      try {
-        sessionStorage.setItem("gg-intro-shown", "1")
-      } catch {
-        /* private mode / blocked storage */
-      }
-    }, 2900)
-    return () => window.clearTimeout(id)
-  }, [])
-
-  return (
-    <motion.div
-      className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center bg-[#05070f]"
-      style={{
-        paddingLeft: "env(safe-area-inset-left, 0px)",
-        paddingRight: "env(safe-area-inset-right, 0px)",
-      }}
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ delay: 2.2, duration: 0.7, ease: "easeOut" }}
-    >
-      <div className="relative">
-        <motion.div
-          className="absolute -inset-20 rounded-full bg-fuchsia-500/25 blur-3xl max-[380px]:-inset-12"
-          initial={{ opacity: 0.2, scale: 0.85 }}
-          animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.88, 1.16, 1] }}
-          transition={{ duration: 2.3, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute -inset-24 rounded-full bg-cyan-400/18 blur-3xl max-[380px]:-inset-14"
-          initial={{ opacity: 0.2, scale: 0.9 }}
-          animate={{ opacity: [0.2, 0.6, 0.2], scale: [0.9, 1.2, 1.02] }}
-          transition={{ duration: 2.4, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, scale: 0.65, y: 20 }}
-          animate={{ opacity: 1, scale: [0.7, 1.08, 0.92], y: [20, 0, -2] }}
-          transition={{ duration: 1.8, ease: "easeOut" }}
-        >
-          <motion.div
-            initial={{ x: 0, y: 0 }}
-            animate={{ x: fly.x, y: fly.y, scale: fly.scale }}
-            transition={{ delay: 1.65, duration: 0.8, ease: "easeInOut" }}
-          >
-            <LogoMark className={fly.logoClass} />
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  )
-}
-
-function Navbar({ postIntroDelay }) {
+function Navbar({ introReleased }) {
   const { copy } = useLang()
   return (
     <motion.header
-      initial={{ opacity: 0, y: -14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: postIntroDelay, duration: 0.7 }}
+      initial={false}
+      animate={{
+        opacity: introReleased ? 1 : 0,
+        y: introReleased ? 0 : -12,
+      }}
+      transition={{ duration: 0.68, ease: "easeOut" }}
+      style={{ pointerEvents: introReleased ? "auto" : "none" }}
       className="sticky z-40 mt-4 top-[max(1rem,env(safe-area-inset-top,0px))]"
     >
       <nav className="section-shell gradient-border flex flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3 sm:px-5">
@@ -271,7 +196,7 @@ function Navbar({ postIntroDelay }) {
   )
 }
 
-function Hero({ reducedMotion, heroEnterDelay }) {
+function Hero({ reducedMotion, introReleased }) {
   const { copy } = useLang()
   const yMotion = useMotionValue(0)
   const springY = useSpring(yMotion, { stiffness: 80, damping: 20, mass: 0.5 })
@@ -290,10 +215,14 @@ function Hero({ reducedMotion, heroEnterDelay }) {
 
   return (
     <motion.section
-      initial={{ opacity: 0, y: 26 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: heroEnterDelay, duration: 0.8 }}
+      initial={false}
+      animate={{
+        opacity: introReleased ? 1 : 0,
+        y: introReleased ? 0 : 22,
+      }}
+      transition={{ duration: 0.85, ease: "easeOut", delay: introReleased ? 0.06 : 0 }}
       className="pt-18"
+      style={{ pointerEvents: introReleased ? "auto" : "none" }}
     >
       <div className="section-shell gradient-border relative overflow-hidden rounded-3xl px-4 py-10 text-left sm:px-6 sm:py-12 md:px-12 md:py-14">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_35%,rgba(95,235,255,0.2),transparent_40%),radial-gradient(circle_at_85%_40%,rgba(219,76,255,0.18),transparent_44%)]" />
