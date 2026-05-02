@@ -103,7 +103,7 @@ export const STRINGS = {
     dashCpl: "CPL",
     dashPipeline: "+$420K en pipeline influenciado",
     dashStack: "Creatividad y rendimiento",
-    servicesTitle: "Servicios para crecer en el mercado USA",
+    servicesTitle: "Services Built for US Market Growth",
     serviceCardDesc:
       "Estrategia, creatividad y ejecución alineadas a un crecimiento medible del embudo comercial y de los ingresos.",
     mrWipoTitle: "Destacado creativo: marcas en movimiento",

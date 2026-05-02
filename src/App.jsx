@@ -69,12 +69,12 @@ function AppShell() {
         <Navbar />
         <Hero reducedMotion={reducedMotion} />
         <Services />
-        <ServicesSpotlightCarousel key={lang} reducedMotion={reducedMotion} />
-        <ShowcaseVitrine key={lang} reducedMotion={reducedMotion} />
+        <ServicesSpotlightCarousel key={`services-spotlight-${lang}`} reducedMotion={reducedMotion} />
+        <ShowcaseVitrine key={`showcase-${lang}`} reducedMotion={reducedMotion} />
         <WhyChooseUs />
         <Results />
         <LocalSEO />
-        <Testimonials key={lang} reducedMotion={reducedMotion} />
+        <Testimonials key={`testimonials-${lang}`} reducedMotion={reducedMotion} />
         <FinalCTA />
       </div>
     </main>
