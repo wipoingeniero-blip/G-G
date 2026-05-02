@@ -1,6 +1,6 @@
 export const STRINGS = {
   en: {
-    logoAlt: "GG Marketing & Advertising logo",
+    logoAlt: "G&G Marketing & Advertising logo",
     navCta: "Book Free Strategy Call",
     heroBadge: "Serving Austin, Texas Businesses",
     heroTitle: "Austin's Premier Marketing & Advertising Agency",
@@ -59,7 +59,7 @@ export const STRINGS = {
     ],
     localTitle: "Local SEO Focus: Austin, Texas",
     localBody:
-      "GG Marketing & Advertising is a high-performance digital partner for growth-focused brands searching for a trusted marketing agency in Austin TX.",
+      "G&G Marketing & Advertising is a high-performance digital partner for growth-focused brands searching for a trusted marketing agency in Austin TX.",
     seoKeywords: [
       "Marketing Agency Austin TX",
       "Advertising Agency Austin",
@@ -72,7 +72,7 @@ export const STRINGS = {
       {
         author: "S. Martinez",
         quote:
-          "GG Marketing transformed our lead quality in under 90 days. Their Austin market strategy felt custom-built for our business.",
+          "G&G Marketing & Advertising transformed our lead quality in under 90 days. Their Austin market strategy felt custom-built for our business.",
         role: "Founder, Austin Home Services Brand",
       },
       {
@@ -84,11 +84,11 @@ export const STRINGS = {
     ],
     finalTitle: "Ready to Scale Your Austin Business?",
     finalBody:
-      "Book a free strategy call with GG Marketing & Advertising and receive a tailored growth roadmap for your next stage of revenue expansion.",
+      "Book a free strategy call with G&G Marketing & Advertising and receive a tailored growth roadmap for your next stage of revenue expansion.",
     finalCta: "Book Free Strategy Call",
   },
   es: {
-    logoAlt: "Logo de GG Marketing & Publicidad",
+    logoAlt: "Logo de G&G Marketing & Publicidad",
     navCta: "Reservar llamada gratuita",
     heroBadge: "Atendemos negocios en Austin, Texas",
     heroTitle: "La agencia líder de marketing y publicidad en Austin",
@@ -135,7 +135,7 @@ export const STRINGS = {
     showcaseNext: "Diapositiva siguiente",
     showcaseDots: "Seleccionar proyecto",
     showcaseGoTo: "Ver",
-    whyTitle: "Por qué eligen a GG en Austin",
+    whyTitle: "Por qué eligen a G&G en Austin",
     whyBody:
       "Unimos claridad estratégica, creatividad premium y sistemas enfocados en conversión, adaptados al ecosistema competitivo de Austin. Cada campaña eleva la autoridad de marca y genera crecimiento medible.",
     resultsTitle: "Resultados que construyen autoridad",
@@ -147,7 +147,7 @@ export const STRINGS = {
     ],
     localTitle: "SEO local: Austin, Texas",
     localBody:
-      "GG Marketing & Publicidad es un socio digital de alto rendimiento para marcas en crecimiento que buscan una agencia de confianza en Austin, TX.",
+      "G&G Marketing & Publicidad es un socio digital de alto rendimiento para marcas en crecimiento que buscan una agencia de confianza en Austin, TX.",
     seoKeywords: [
       "Agencia de marketing Austin TX",
       "Agencia de publicidad Austin",
@@ -160,7 +160,7 @@ export const STRINGS = {
       {
         author: "S. Martinez",
         quote:
-          "GG Marketing & Publicidad mejoró la calidad de nuestros leads en menos de 90 días. Su estrategia para Austin se sintió hecha a medida.",
+          "G&G Marketing & Publicidad mejoró la calidad de nuestros leads en menos de 90 días. Su estrategia para Austin se sintió hecha a medida.",
         role: "Fundador, marca de servicios para el hogar en Austin",
       },
       {
@@ -172,7 +172,7 @@ export const STRINGS = {
     ],
     finalTitle: "¿Listo para escalar tu negocio en Austin?",
     finalBody:
-      "Agenda una llamada estratégica gratuita con GG Marketing & Publicidad y recibe una hoja de ruta de crecimiento para tu siguiente etapa de expansión de ingresos.",
+      "Agenda una llamada estratégica gratuita con G&G Marketing & Publicidad y recibe una hoja de ruta de crecimiento para tu siguiente etapa de expansión de ingresos.",
     finalCta: "Reservar llamada gratuita",
   },
 }

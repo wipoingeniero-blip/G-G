@@ -198,7 +198,7 @@ function Navbar() {
           <LogoMark />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold uppercase tracking-[0.24em] text-cyan-200">
-              GG Marketing & Advertising
+              G&G Marketing & Advertising
             </p>
             <p className="text-xs text-slate-300">Austin, Texas</p>
           </div>
