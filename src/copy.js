@@ -84,8 +84,8 @@ export const STRINGS = {
     ],
     finalTitle: "Ready to Scale Your Austin Business?",
     finalBody:
-      "Book a free strategy call with G&G Marketing & Advertising and receive a tailored growth roadmap for your next stage of revenue expansion.",
-    finalCta: "Book Free Strategy Call",
+      "With G&G Marketing & Advertising, you will receive a customized growth roadmap for the next stage of your revenue expansion.",
+    finalCta: "CREATE YOUR STRATEGY",
   },
   es: {
     logoAlt: "Logo de G&G Marketing & Publicidad",
