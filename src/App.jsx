@@ -533,15 +533,15 @@ function ShowcaseVitrine({ reducedMotion }) {
               {portfolioSlides.map((work, index) => (
                 <article
                   key={`${work.src}-${lang}`}
-                  className="group relative min-w-full shrink-0 px-1"
+                  className="group relative flex min-w-full shrink-0 flex-col items-center px-1"
                   aria-hidden={index !== slide}
                 >
                   <div
                     className={`pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br ${work.accent} opacity-80`}
                   />
-                  <div className="relative z-10 flex flex-col gap-2 pb-2 pt-1">
-                    <div className="flex items-start justify-between gap-2 px-1">
-                      <div className="text-left">
+                  <div className="relative z-10 flex w-full max-w-full flex-col items-center gap-2 pb-2 pt-1">
+                    <div className="flex w-full items-start justify-between gap-2 px-1">
+                      <div className="min-w-0 flex-1 text-left">
                         <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-cyan-100/90 md:text-xs">
                           {work.tag}
                         </p>
@@ -551,13 +551,13 @@ function ShowcaseVitrine({ reducedMotion }) {
                         {String(index + 1).padStart(2, "0")}/{String(total).padStart(2, "0")}
                       </span>
                     </div>
-                    <div className="relative mx-auto aspect-[3/4] w-full max-h-[220px] overflow-hidden rounded-lg border border-white/10 bg-black/50 md:max-h-[260px]">
+                    <div className="relative mx-auto flex aspect-[3/4] w-full max-h-[220px] items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-black/50 md:max-h-[260px]">
                       <img
                         src={work.src}
                         alt={`${work.title}`}
                         loading={index === 0 ? "eager" : "lazy"}
                         decoding="async"
-                        className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+                        className="max-h-full max-w-full object-contain object-center transition duration-500 group-hover:scale-[1.03]"
                       />
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                     </div>
