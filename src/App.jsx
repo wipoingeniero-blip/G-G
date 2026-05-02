@@ -343,6 +343,7 @@ function Services() {
   const servicesList = useMemo(() => getServicesForLang(lang), [lang])
   return (
     <motion.section
+      key={`services-block-${lang}`}
       id="services"
       variants={reveal}
       initial="hidden"
@@ -610,6 +611,7 @@ function Results() {
   const { copy, lang } = useLang()
   return (
     <motion.section
+      key={`results-block-${lang}`}
       variants={reveal}
       initial="hidden"
       whileInView="show"
