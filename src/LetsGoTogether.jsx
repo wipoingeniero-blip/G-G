@@ -1,10 +1,21 @@
-import { useEffect } from "react"
+import { useEffect, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
+
 const FORMSUBMIT_ACTION = "https://formsubmit.co/administrator@gygdigitalmarketing.com"
 
 export default function LetsGoTogether() {
-  const homeUrl = typeof window !== "undefined" ? `${window.location.origin}/` : "/"
+  const homeUrl = useMemo(() => {
+    if (typeof window === "undefined") return "https://ggmarketingaustin.com/"
+    const { protocol, host } = window.location
+    if (!host) return "https://ggmarketingaustin.com/"
+    return `${protocol}//${host}/`
+  }, [])
+
+  const formPageUrl = useMemo(() => {
+    if (typeof window === "undefined") return ""
+    return window.location.href.split("#")[0]
+  }, [])
 
   useEffect(() => {
     const prevTitle = document.title
@@ -54,89 +65,90 @@ export default function LetsGoTogether() {
           </p>
         </motion.div>
 
-        <motion.form
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.12, ease: "easeOut" }}
-          action={FORMSUBMIT_ACTION}
-          method="POST"
-          className="section-shell gradient-border mt-10 space-y-5 rounded-2xl p-6 sm:p-8"
+          className="section-shell gradient-border mt-10 rounded-2xl p-6 sm:p-8"
         >
-          <input type="hidden" name="_subject" value="G&G — Let's go together (strategy page)" />
-          <input type="hidden" name="_next" value={homeUrl} />
-          <input type="hidden" name="_template" value="table" />
+          <form action={FORMSUBMIT_ACTION} method="POST" className="space-y-5">
+            <input type="hidden" name="_subject" value="G&G — Let's go together (strategy page)" />
+            <input type="hidden" name="_next" value={homeUrl} />
+            <input type="hidden" name="_template" value="table" />
+            {formPageUrl ? <input type="hidden" name="_url" value={formPageUrl} /> : null}
 
-          <div>
-            <label htmlFor="lgt-name" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Name
-            </label>
-            <input
-              id="lgt-name"
-              name="name"
-              type="text"
-              required
-              autoComplete="name"
-              className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
-              placeholder="Your name"
-            />
-          </div>
+            <div>
+              <label htmlFor="lgt-name" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Name
+              </label>
+              <input
+                id="lgt-name"
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
+                placeholder="Your name"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="lgt-email" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Email
-            </label>
-            <input
-              id="lgt-email"
-              name="email"
-              type="email"
-              required
-              autoComplete="email"
-              className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
-              placeholder="you@company.com"
-            />
-          </div>
+            <div>
+              <label htmlFor="lgt-email" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Email
+              </label>
+              <input
+                id="lgt-email"
+                name="email"
+                type="email"
+                required
+                autoComplete="email"
+                className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
+                placeholder="you@company.com"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="lgt-phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Phone <span className="font-normal normal-case text-slate-500">(optional)</span>
-            </label>
-            <input
-              id="lgt-phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
-              placeholder="+1 …"
-            />
-          </div>
+            <div>
+              <label htmlFor="lgt-phone" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Phone <span className="font-normal normal-case text-slate-500">(optional)</span>
+              </label>
+              <input
+                id="lgt-phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                className="mt-2 w-full rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
+                placeholder="+1 …"
+              />
+            </div>
 
-          <div>
-            <label htmlFor="lgt-message" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Message
-            </label>
-            <textarea
-              id="lgt-message"
-              name="message"
-              required
-              rows={5}
-              className="mt-2 w-full resize-y rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
-              placeholder="Goals, timeline, or questions…"
-            />
-          </div>
+            <div>
+              <label htmlFor="lgt-message" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
+                Message
+              </label>
+              <textarea
+                id="lgt-message"
+                name="message"
+                required
+                rows={5}
+                className="mt-2 w-full resize-y rounded-lg border border-white/12 bg-slate-950/60 px-3 py-2.5 text-slate-100 outline-none ring-cyan-400/40 placeholder:text-slate-500 focus:border-cyan-400/50 focus:ring-2"
+                placeholder="Goals, timeline, or questions…"
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-cyan-400 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-110"
-          >
-            Send message
-          </button>
+            <button
+              type="submit"
+              className="w-full rounded-xl bg-gradient-to-r from-cyan-400 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:brightness-110"
+            >
+              Send message
+            </button>
 
-          <p className="text-center text-[11px] leading-relaxed text-slate-500">
-            Delivered to{" "}
-            <span className="text-slate-400">administrator@gygdigitalmarketing.com</span>. The first time
-            you use FormSubmit, check that inbox to activate delivery if prompted.
-          </p>
-        </motion.form>
+            <p className="text-center text-[11px] leading-relaxed text-slate-500">
+              Delivered to{" "}
+              <span className="text-slate-400">administrator@gygdigitalmarketing.com</span>. The first time
+              you use FormSubmit, check that inbox to activate delivery if prompted.
+            </p>
+          </form>
+        </motion.div>
       </div>
     </main>
   )
