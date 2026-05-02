@@ -8,13 +8,8 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion"
-import {
-  getPortfolioSlides,
-  getServicesForLang,
-  LangProvider,
-  LanguageToggle,
-  useLang,
-} from "./i18n"
+import { getPortfolioSlides, getServicesForLang } from "./copy"
+import { LangProvider, LanguageToggle, useLang } from "./i18n"
 
 const logoPath = "/logo.png"
 
@@ -64,6 +59,7 @@ function App() {
 
 function AppShell() {
   const reducedMotion = useReducedMotion()
+  const { lang } = useLang()
 
   return (
     <main className="relative overflow-x-hidden px-6 pb-24 text-slate-100 lg:px-10">
@@ -73,12 +69,12 @@ function AppShell() {
         <Navbar />
         <Hero reducedMotion={reducedMotion} />
         <Services />
-        <ServicesSpotlightCarousel reducedMotion={reducedMotion} />
-        <ShowcaseVitrine reducedMotion={reducedMotion} />
+        <ServicesSpotlightCarousel key={lang} reducedMotion={reducedMotion} />
+        <ShowcaseVitrine key={lang} reducedMotion={reducedMotion} />
         <WhyChooseUs />
         <Results />
         <LocalSEO />
-        <Testimonials />
+        <Testimonials key={lang} reducedMotion={reducedMotion} />
         <FinalCTA />
       </div>
     </main>
@@ -383,21 +379,17 @@ function Services() {
 }
 
 function ServicesSpotlightCarousel({ reducedMotion }) {
-  const { lang, copy } = useLang()
+  const { copy } = useLang()
   const slides = useMemo(
     () =>
       MR_WIPO_CAROUSEL_SRCS.map((src, idx) => ({
         src,
         alt: copy.mrWipoAlts[idx] ?? "Mr. WIPO",
       })),
-    [copy, lang],
+    [copy],
   )
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
-
-  useEffect(() => {
-    setActive(0)
-  }, [lang])
 
   useEffect(() => {
     if (paused) return undefined
@@ -414,10 +406,10 @@ function ServicesSpotlightCarousel({ reducedMotion }) {
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
       className="pt-10"
-      aria-labelledby="mrwipo-spotlight-heading"
+      aria-labelledby="services-spotlight-heading"
     >
       <div className="section-divider mb-6 h-px w-full max-w-3xl opacity-70" />
-      <h3 id="mrwipo-spotlight-heading" className="text-lg font-semibold text-slate-100 md:text-xl">
+      <h3 id="services-spotlight-heading" className="text-lg font-semibold text-slate-100 md:text-xl">
         {copy.mrWipoTitle}
       </h3>
       <p className="mt-2 max-w-3xl text-sm text-slate-400 md:text-base">{copy.mrWipoSub}</p>
@@ -482,10 +474,6 @@ function ShowcaseVitrine({ reducedMotion }) {
   const portfolioSlides = useMemo(() => getPortfolioSlides(lang), [lang])
   const [slide, setSlide] = useState(0)
   const total = portfolioSlides.length
-
-  useEffect(() => {
-    setSlide((s) => Math.min(s, total - 1))
-  }, [lang, total])
 
   const goPrev = () => setSlide((i) => (i - 1 + total) % total)
   const goNext = () => setSlide((i) => (i + 1) % total)
@@ -708,15 +696,10 @@ function LocalSEO() {
   )
 }
 
-function Testimonials() {
-  const reducedMotion = useReducedMotion()
-  const { copy, lang } = useLang()
+function Testimonials({ reducedMotion }) {
+  const { copy } = useLang()
   const [index, setIndex] = useState(0)
   const list = copy.testimonials
-
-  useEffect(() => {
-    setIndex(0)
-  }, [lang])
 
   useEffect(() => {
     const timer = setInterval(() => {
