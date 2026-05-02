@@ -89,6 +89,7 @@ export const STRINGS = {
     finalBody:
       "With G&G Marketing & Advertising, you will receive a customized growth roadmap for the next stage of your revenue expansion.",
     finalCta: "CREATE YOUR STRATEGY",
+    footerCopyright: "Copyright: G&G DIGITAL MARKETING 2026",
   },
   es: {
     logoAlt: "Logo de G&G Marketing & Publicidad",
@@ -180,6 +181,7 @@ export const STRINGS = {
     finalBody:
       "Con G&G Marketing & Publicidad, recibirás una hoja de ruta de crecimiento personalizada para la siguiente etapa de la expansión de tus ingresos.",
     finalCta: "CREA TU ESTRATEGIA",
+    footerCopyright: "Copyright: G&G DIGITAL MARKETING 2026",
   },
 }
 

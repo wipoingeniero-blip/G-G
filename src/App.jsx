@@ -83,6 +83,7 @@ function AppShell() {
         <LocalSEO />
         <Testimonials key={`testimonials-${lang}`} reducedMotion={reducedMotion} />
         <FinalCTA />
+        <SiteFooter />
       </div>
     </main>
   )
@@ -809,6 +810,17 @@ function Testimonials({ reducedMotion }) {
         </div>
       </div>
     </motion.section>
+  )
+}
+
+function SiteFooter() {
+  const { copy } = useLang()
+  return (
+    <footer className="mt-20 border-t border-white/10 pt-10 pb-2">
+      <p className="text-center text-[11px] font-medium tracking-wide text-slate-500 sm:text-xs">
+        {copy.footerCopyright}
+      </p>
+    </footer>
   )
 }
 
