@@ -39,7 +39,7 @@ export const STRINGS = {
     servicesTitle: "Services That Drive Revenue",
     mrWipoTitle: "Creative spotlight: brands in motion",
     mrWipoSub:
-      "Automatic carousel — Mr. WIPO 3D mascots, packaging and product shots, plus premium client identity (Auto Techs Mobile).",
+      "We strategically build brands to develop memorable identities, authentic emotional connections, and positioning that differentiates them from their competition.",
     mrWipoDots: "Select spotlight visual",
     mrWipoAltFallback: "Spotlight carousel image",
     langToggleAria: "Switch between English and Spanish",
@@ -172,7 +172,7 @@ export const STRINGS = {
     servicesTitle: "Servicios que impulsan ingresos",
     mrWipoTitle: "Destacado creativo: marcas en movimiento",
     mrWipoSub:
-      "Carrusel automático: mascotas 3D Mr. WIPO, empaque y fotografía de producto, más identidad premium para clientes (Auto Techs Mobile).",
+      "Construimos marcas con estrategia para lograr identidades memorables, vínculos emocionales auténticos y un posicionamiento que las distingue de la competencia.",
     mrWipoDots: "Elegir visual del destacado",
     mrWipoAltFallback: "Imagen del carrusel destacado",
     langToggleAria: "Cambiar entre español e inglés",
